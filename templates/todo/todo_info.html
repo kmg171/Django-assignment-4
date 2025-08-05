@@ -1,4 +1,5 @@
-{% extends 'todo/base.html' %}
+{% extends 'todo/../base.html' %}
+
 {% block content %}
 <style>
     body {
@@ -55,19 +56,25 @@
         background-color: #cc1122;
     }
 </style>
+
 <div class="container">
-    <div style="display: flex; justify-content: space-between">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1>{{ todo.title }}</h1>
         <div>
-            <button class="button-group" onclick="location.href='{% url 'todo_update' todo.id %}'">수정하기</button>
-            <button class="button-group" id="delete-button" onclick="location.href='{% url 'todo_delete' todo.id %}'">삭제하기</button>
+            <button class="button-group" onclick="location.href='{% url 'cbv_todo_update' todo.id %}'">수정하기</button>
+
+            <form method="POST" action="{% url 'cbv_todo_delete' todo.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="button-group" id="delete-button">삭제하기</button>
+            </form>
         </div>
     </div>
+
     <table>
         {% for key, value in todo.items %}
             {% if key != 'title' and key != 'id' and key != 'user_id' and key != '_state' %}
                 <tr>
-                    <th>{{ key }}</th>
+                    <th>{{ key|capfirst }}</th>
                     <td>{{ value }}</td>
                 </tr>
             {% endif %}
