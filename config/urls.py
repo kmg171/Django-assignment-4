@@ -8,6 +8,10 @@ from todo.views import (
     todo_delete
 )
 from users import views as user_views
+# config/urls.py
+from django.contrib import admin
+from django.urls import path, include
+from users import views as user_views
 
 urlpatterns = [
     # Todo 앱 URL
@@ -19,6 +23,7 @@ urlpatterns = [
 
     # 관리자 페이지
     path('admin/', admin.site.urls),
+    path('cbv/', include('todo.urls')),
 
     # 로그인/로그아웃 (Django 기본 auth 사용)
     path('accounts/', include('django.contrib.auth.urls')),
